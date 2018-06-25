@@ -81,8 +81,7 @@ class getPulseApp(object):
         #(A GUI window must have focus for these to work)
         self.key_controls = {"s": self.toggle_search,
                              "d": self.toggle_display_plot,
-                             "c": self.toggle_cam,
-                             "f": self.write_csv}
+                             "c": self.toggle_cam}
 
     def toggle_cam(self):
         if len(self.cameras) > 1:
@@ -91,16 +90,6 @@ class getPulseApp(object):
             destroyWindow(self.plot_title)
             self.selected_cam += 1
             self.selected_cam = self.selected_cam % len(self.cameras)
-
-    def write_csv(self):
-        """
-        Writes current data to a csv file
-        """
-        fn = "Webcam-pulse" + str(datetime.datetime.now())
-        fn = fn.replace(":", "_").replace(".", "_")
-        data = np.vstack((self.processor.times, self.processor.samples)).T
-        np.savetxt(fn + ".csv", data, delimiter=',')
-        print("Writing csv")
 
     def toggle_search(self):
         """
