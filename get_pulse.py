@@ -151,7 +151,7 @@ class getPulseApp(object):
         imshow("Processed", output_frame)
 
         # create and/or update the raw data display if needed
-        
+
         if self.send_serial:
             self.serial.write(str(self.processor.bpm) + "\r\n")
 
