@@ -80,7 +80,6 @@ class getPulseApp(object):
         # Maps keystrokes to specified methods
         #(A GUI window must have focus for these to work)
         self.key_controls = {"s": self.toggle_search,
-                             "d": self.toggle_display_plot,
                              "c": self.toggle_cam}
 
     def toggle_cam(self):
@@ -101,38 +100,6 @@ class getPulseApp(object):
         #state = self.processor.find_faces.toggle()
         state = self.processor.find_faces_toggle()
         print("face detection lock =", not state)
-
-    def toggle_display_plot(self):
-        """
-        Toggles the data display.
-        """
-        if self.bpm_plot:
-            print("bpm plot disabled")
-            self.bpm_plot = False
-            destroyWindow(self.plot_title)
-        else:
-            print("bpm plot enabled")
-            if self.processor.find_faces:
-                self.toggle_search()
-            self.bpm_plot = True
-            self.make_bpm_plot()
-            moveWindow(self.plot_title, self.w, 0)
-
-    def make_bpm_plot(self):
-        """
-        Creates and/or updates the data display
-        """
-        plotXY([[self.processor.times,
-                 self.processor.samples],
-                [self.processor.freqs,
-                 self.processor.fft]],
-               labels=[False, True],
-               showmax=[False, "bpm"],
-               label_ndigits=[0, 0],
-               showmax_digits=[0, 1],
-               skip=[3, 3],
-               name=self.plot_title,
-               bg=self.processor.slices[0])
 
     def key_handler(self):
         """
@@ -184,9 +151,7 @@ class getPulseApp(object):
         imshow("Processed", output_frame)
 
         # create and/or update the raw data display if needed
-        if self.bpm_plot:
-            self.make_bpm_plot()
-
+        
         if self.send_serial:
             self.serial.write(str(self.processor.bpm) + "\r\n")
 
