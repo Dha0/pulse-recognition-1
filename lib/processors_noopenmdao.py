@@ -113,18 +113,18 @@ class findFaceGetPulse(object):
         idx = np.where((freqs > 50) & (freqs < 180))
         pylab.figure()
         n = data.shape[0]
-        for k in xrange(n):
+        for k in range(n):
             pylab.subplot(n, 1, k + 1)
             pylab.plot(self.times, data[k])
         pylab.savefig("data.png")
         pylab.figure()
-        for k in xrange(self.output_dim):
+        for k in range(self.output_dim):
             pylab.subplot(self.output_dim, 1, k + 1)
             pylab.plot(self.times, self.pcadata[k])
         pylab.savefig("data_pca.png")
 
         pylab.figure()
-        for k in xrange(self.output_dim):
+        for k in range(self.output_dim):
             pylab.subplot(self.output_dim, 1, k + 1)
             pylab.plot(freqs[idx], self.fft[k][idx])
         pylab.savefig("data_fft.png")
@@ -183,9 +183,11 @@ class findFaceGetPulse(object):
 
         def nextpow2(i):
             n = 1
+            j=0
             while n < i:
                 n *= 2
-            return n
+                j+=1
+            return j
         xg1 = np.zeros(self.num_of_frames - 19, 'double')
         xg2 = np.zeros(self.num_of_frames - 19, 'double')
         xg3 = np.zeros(self.num_of_frames - 19, 'double')
@@ -201,6 +203,8 @@ class findFaceGetPulse(object):
         if self.num_of_frames > 19:
             for k in range(1, self.num_of_frames-19):
                 green_image=self.all_frames[k]
+                green_image[:, :, 0] = 0
+                green_image[:, :, 2] = 0
                 for x in range(fox, fox+fow):
                     for y in range(foy, foy+foh):
                         self.sum1 = (green_image[x, y,1]) + self.sum1
@@ -225,7 +229,12 @@ class findFaceGetPulse(object):
             Fs = 27
             T = 1 / Fs
             l = self.num_of_frames - 19
-            myNFFT = 2 ^ nextpow2(l)
+            print("l")
+            print(l)
+            print("nextpow2")
+            print(nextpow2(l))
+            myNFFT = 2**nextpow2(l)
+            print(myNFFT)
             yg1 = np.fft.rfft(xgm1, myNFFT) / l
             yg2 = np.fft.rfft(xgm2, myNFFT) / l
             yg3 = np.fft.rfft(xgm3, myNFFT) / l
@@ -266,16 +275,16 @@ class findFaceGetPulse(object):
             print(nextPulse_1)
 
 
-        #this is the improvement of the algorithm that compare 3 overlapping areas,
-        #and finds peak that exists in all of them
+        # this is the improvement of the algorithm that compare 3 overlapping areas,
+        # and finds peak that exists in all of them
 
         for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
-            if (np.abs(yg1[a]) > np.abs(yg1[a-2]) and (yg1[a]) > np.abs(yg1[a+2]))and (np.abs(yg2[a]) > np.abs(yg2[a-2])and(yg2[a])>np.abs(yg2[a+2])) and(np.abs(yg3[a])>np.abs(yg3[a-2])and (yg3[a])>np.abs(yg3[a+2])):
-                y = max(np.abs(yg3[a]), np.abs(yg1[a]))
-                yg4[a] = max(y, np.abs(yg2[a]))
+            if (abs(yg1[a]) > abs(yg1[a-2]) and (yg1[a]) > abs(yg1[a+2]))and (abs(yg2[a]) > abs(yg2[a-2])and(yg2[a])>abs(yg2[a+2])) and(abs(yg3[a])>abs(yg3[a-2])and (yg3[a])>abs(yg3[a+2])):
+                y = max(abs(yg3[a]), abs(yg1[a]))
+                yg4[a] = max(y, abs(yg2[a]))
             else:
-                x = min(np.abs(yg3[a]), np.abs(yg1[a]))
-                yg4[a] = min(np.abs(yg2[a]), x)
+                x = min(abs(yg3[a]), abs(yg1[a]))
+                yg4[a] = min(abs(yg2[a]), x)
         y4 = 2*np.abs(yg4[1:np.math.floor((myNFFT / 2) + 1)])
         f11 = 0
         for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
@@ -293,12 +302,12 @@ class findFaceGetPulse(object):
         print(pulse_amplitude_2)
 
         # xf, yf, wf, hf = forehead1
-
+        #
         # forehead2 = [xf+15, yf, wf, hf]
         # self.draw_rect(forehead2)
         # forehead3 = [xf - 15, yf, wf, hf]
         # self.draw_rect(forehead3)
-
+        #
         # L = len(self.data_buffer)
         # if L > self.buffer_size:
         #     self.data_buffer = self.data_buffer[-self.buffer_size:]
