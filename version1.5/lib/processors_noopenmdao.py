@@ -133,108 +133,7 @@ class findFaceGetPulse(object):
         quit()
 
 
-        #     #
-        #     # # this is the improvement of the algorithm that compare 3 overlapping areas,
-        #     # # and finds peak that exists in all of them
-        #     #
-        #     # for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
-        #     #     if (abs(yg1[a]) > abs(yg1[a-2]) and (yg1[a]) > abs(yg1[a+2]))and (abs(yg2[a]) > abs(yg2[a-2])and(yg2[a])>abs(yg2[a+2])) and(abs(yg3[a])>abs(yg3[a-2])and (yg3[a])>abs(yg3[a+2])):
-        #     #         y = max(abs(yg3[a]), abs(yg1[a]))
-        #     #         yg4[a] = max(y, abs(yg2[a]))
-        #     #     else:
-        #     #         x = min(abs(yg3[a]), abs(yg1[a]))
-        #     #         yg4[a] = min(abs(yg2[a]), x)
-        #     # y4 = 2*np.abs(yg4[1:np.math.floor((myNFFT / 2) + 1)])
-        #     # f11 = 0
-        #     # for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
-        #     #     if f11 < y4[a]:
-        #     #         f11 = y4[a]
-        #     #         index1 = a
-        #     #
-        #     # f11_old = f11
-        #     # index1_old = index1
-        #     # detected_pulse_2 = 60 * (index1 - 1) * 15 / (len(y4) - 1)
-        #     # pulse_amplitude_2 = y4[index1]
-        #     # print("det-after")
-        #     # print(detected_pulse_2)
-        #     # print("amplitdue")
-        #     # print(pulse_amplitude_2)
-        # else:
-        #     # Tracking failure
-        #     cv2.putText(frame, "Tracking failure detected", (100, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 255), 2)
-        # xf, yf, wf, hf = forehead1
-        #
-        # forehead2 = [xf+15, yf, wf, hf]
-        # self.draw_rect(forehead2)
-        # forehead3 = [xf - 15, yf, wf, hf]
-        # self.draw_rect(forehead3)
-        #
-        # L = len(self.data_buffer)
-        # if L > self.buffer_size:
-        #     self.data_buffer = self.data_buffer[-self.buffer_size:]
-        #     self.times = self.times[-self.buffer_size:]
-        #     L = self.buffer_size
-        #
-        # processed = np.array(self.data_buffer)
-        # self.samples = processed
-        # if L > 10:
-        #     self.output_dim = processed.shape[0]
-        #
-        #     self.fps = float(L) / (self.times[-1] - self.times[0])
-        #     even_times = np.linspace(self.times[0], self.times[-1], L)
-        #     interpolated = np.interp(even_times, self.times, processed)
-        #     interpolated = np.hamming(L) * interpolated
-        #     interpolated = interpolated - np.mean(interpolated)
-        #     raw = np.fft.rfft(interpolated)
-        #     phase = np.angle(raw)
-        #     self.fft = np.abs(raw)
-        #     self.freqs = float(self.fps) / L * np.arange(L / 2 + 1)
-        #
-        #     freqs = 60. * self.freqs
-        #     idx = np.where((freqs > 50) & (freqs < 180))
-        #
-        #     pruned = self.fft[idx]
-        #     phase = phase[idx]
-        #
-        #     pfreq = freqs[idx]
-        #     self.freqs = pfreq
-        #     self.fft = pruned
-        #     idx2 = np.argmax(pruned)
-        #
-        #     t = (np.sin(phase[idx2]) + 1.) / 2.
-        #     t = 0.9 * t + 0.1
-        #     alpha = t
-        #     beta = 1 - t
-        #
-        #     self.bpm = self.freqs[idx2]
-        #     self.idx += 1
-        #
-        #     x, y, w, h = self.get_subface_coord(0.5, 0.18, 0.25, 0.15)
-        #     r = alpha * self.frame_in[y:y + h, x:x + w, 0]
-        #     g = alpha * \
-        #         self.frame_in[y:y + h, x:x + w, 1] + \
-        #         beta * self.gray[y:y + h, x:x + w]
-        #     b = alpha * self.frame_in[y:y + h, x:x + w, 2]
-        #     self.frame_out[y:y + h, x:x + w] = cv2.merge([r,
-        #                                                   g,
-        #                                                   b])
-        #     x1, y1, w1, h1 = self.face_rect
-        #     self.slices = [np.copy(self.frame_out[y1:y1 + h1, x1:x1 + w1, 1])]
-        #     col = (100, 255, 100)
-        #     gap = (self.buffer_size - L) / self.fps
-        #     # self.bpms.append(self.bpm)
-        #     # self.ttimes.append(time.time())
-        #     if gap:
-        #         text = "(estimate: %0.1f bpm, wait %0.0f s)" % (self.bpm, gap)
-        #     else:
-        #         text = "(estimate: %0.1f bpm)" % (self.bpm)
-        #     tsize = 1
-        #     cv2.putText(self.frame_out, text,
-        #                 (int(x - w / 2), int(y)), cv2.FONT_HERSHEY_PLAIN, tsize, col)
-
     def find_face(self, frame):
-
-        print(self.num_of_frames)
         self.times.append(time.time() - self.t0)
         self.frame_out = self.frame_in
         self.gray = cv2.equalizeHist(cv2.cvtColor(self.frame_in,
@@ -254,27 +153,26 @@ class findFaceGetPulse(object):
             if self.shift(detected[-1]) > 10:
                 self.face_rect = detected[-1]
             x1, y1, w1, h1 = self.face_rect
-            cv2.putText(self.frame_out, "Face",
-                        (x1, y1), cv2.FONT_HERSHEY_PLAIN, 1.5, col)
             bbox = x1, y1, w1, h1
+
+
             ok = self.tracker.init(frame, bbox)
-            # if ok:
-            #     # Tracking success
-            #     p1 = (int(bbox[0]), int(bbox[1]))
-            #     p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))
-            #     cv2.rectangle(frame, p1, p2, (255, 0, 0), 2, 1)
-            # else:
-            #     cv2.putText(frame, "Tracking failure detected", (100, 80), cv2.FONT_HERSHEY_SIMPLEX, 0.75, (0, 0, 255),
-            #                 2)
             if set(self.face_rect) == set([1, 1, 2, 2]):
                 return
             ok, bbox = self.tracker.update(frame)
-            forehead1 = self.get_subface_coord(0.5, 0.18, 0.25, 0.15,bbox)
-            self.draw_rect(forehead1)
+            x, y, w, h = self.get_subface_coord(0.5, 0.16, 0.25, 0.15, bbox)
+            forehead1 = x, y, w, h
+            # p1 = (int(bbox[0]), int(bbox[1]))
+            # p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))
+            # cv2.rectangle(frame, p1, p2, (255, 0, 0), 2, 2)
+            p1 = (int(x), int(y))
+            p2 = (int(x+w), int(y+h))
+            cv2.rectangle(frame, p1, p2, (0, 255, 0), 2, 2)
             fobject = (frame, forehead1)
             self.all_frames.append(fobject)
-            if len(self.all_frames)>200:
-                self.selected_frames=self.all_frames
+            if len(self.all_frames) > 200:
+                # self.get_selected_frames()
+                self.selected_frames = self.all_frames.copy()
                 self.run()
 
     def get_selected_frames(self):
@@ -286,11 +184,7 @@ class findFaceGetPulse(object):
             diff = np.array(self.all_frames[0][1][0]) - np.array(self.all_frames[i][1][0])
             temp.append(abs(diff))
             i += 1
-        print("temp")
-        print(temp)
-        print("xxxx")
-        print(self.xy)
-        while j <200:
+        while j < 200:
             min_x = temp.index(min(temp))
             self.indexs.append(min_x)
             temp[min_x] = np.math.inf
@@ -299,111 +193,119 @@ class findFaceGetPulse(object):
         self.run()
 
     def run(self):
-        print(self.selected_frames)
-        self.times.append(time.time() - self.t0)
-        def nextpow2(i):
-            n = 1
-            j = 0
-            while n < i:
-                n *= 2
-                j += 1
-            return j
-        xg1 = np.zeros(len(self.selected_frames), 'double')
-        xg2 = np.zeros(len(self.selected_frames), 'double')
-        xg3 = np.zeros(len(self.selected_frames), 'double')
-        sum1 = 0
-        sum2 = 0
-        sum3 = 0
-        for k in range(0, len(self.selected_frames) - 1):
-            green_image = self.selected_frames[k][0]
-            fox, foy, fow, foh = self.selected_frames[k][1]
-            nop = fow * foh
-            for x in range(fox, fox + fow):
-                for y in range(foy, foy + foh):
-                    sum1 = (green_image[x, y, 1]) + sum1
-                    sum2 = (green_image[x - 15, y, 1]) + sum2
-                    sum3 = (green_image[x + 15, y, 1]) + sum3
-            xg1[k] = sum1 / nop
-            xg2[k] = sum2 / nop
-            xg3[k] = sum3 / nop
+            print(self.selected_frames)
+            self.times.append(time.time() - self.t0)
+            def nextpow2(i):
+                n = 1
+                j = 0
+                while n < i:
+                    n *= 2
+                    j += 1
+                return j
+            xg1 = np.zeros(len(self.selected_frames), 'double')
+            xg2 = np.zeros(len(self.selected_frames), 'double')
+            xg3 = np.zeros(len(self.selected_frames), 'double')
             sum1 = 0
             sum2 = 0
             sum3 = 0
-        xgm1 = xg1 - np.mean(xg1)
-        xgm2 = xg2 - np.mean(xg2)
-        xgm3 = xg3 - np.mean(xg3)
-        full_time_array_1 = xgm1
-        full_time_array_2 = xgm2
-        full_time_array_3 = xgm3
-        Fs = 27
-        T = 1 / Fs
-        l = len(self.selected_frames)
+            for k in range(0, len(self.selected_frames) - 1):
+                green_image = self.selected_frames[k][0]
+                fox, foy, fow, foh = self.selected_frames[k][1]
+                nop = fow * foh
+                for x in range(fox, fox + fow-1):
+                    for y in range(foy, foy + foh-1):
+                        if x < 480 and y < 480:
+                            sum1 = (green_image[x, y, 1]) + sum1
+                            sum2 = (green_image[x - 15, y, 1]) + sum2
+                            sum3 = (green_image[x + 15, y, 1]) + sum3
+                xg1[k] = sum1 / nop
+                xg2[k] = sum2 / nop
+                xg3[k] = sum3 / nop
+                sum1 = 0
+                sum2 = 0
+                sum3 = 0
+            xgm1 = xg1 - np.mean(xg1)
+            xgm2 = xg2 - np.mean(xg2)
+            xgm3 = xg3 - np.mean(xg3)
+            full_time_array_1 = xgm1
+            # full_time_array_2 = xgm2
+            # full_time_array_3 = xgm3
+            Fs = 27
+            T = 1 / Fs
+            l = len(self.selected_frames)
 
-        myNFFT = 2 ** (np.math.ceil(np.math.log(l, 2)))
-        yg1 = np.fft.rfft(xgm1, myNFFT) / l
-        yg2 = np.fft.rfft(xgm2, myNFFT) / l
-        yg3 = np.fft.rfft(xgm3, myNFFT) / l
-        f = Fs / 2 * np.linspace(0, 1, (myNFFT / 2) + 1)
-        yg4 = yg1
-        y1 = 2 * np.abs(yg1[1:np.math.floor((myNFFT / 2) + 1)])
-        y2 = 2 * np.abs(yg2[1:np.math.floor((myNFFT / 2) + 1)])
-        y3 = 2 * np.abs(yg3[1:np.math.floor((myNFFT / 2) + 1)])
-        index = 0
-        f1 = 0
-        print(y1)
-        print(np.math.floor(len(f) / 15 * 0.9 + 1))
-        print(np.math.floor(len(f) / 15 * 3.5))
-        for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
-            if f1 < y1[a]:
-                f1 = y1[a]
-                index = a
-        f1_old = f1
-        index_old = index
-        detected_pulse_1 = 60 * (index - 0.5) * 15 / (len(y1) - 1)
-        pulse_amplitude_1 = y1[index]
-        print("det")
-        print(detected_pulse_1)
-        if detected_pulse_1 >= 60 and detected_pulse_1 <= 120:
-            print("pulse exist")
-            self.num_of_frames = 2000
-        else:
-            print("no pulse!")
-        # finding the next pulse in the main roi
-        index2 = 0
-        pick = y1[index]
-        f1 = 0
-        y1[index] = 0
-        for b in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
-            if f1 < y1[b]:
-                f1 = y1[b]
-                index2 = b
-        nextPulse_1 = 60 * (index2 - 1) * 15 / (len(y1) - 1)
-        next_pulse_amplitude_1 = y1[index2]
-        print("nextPulse")
-        print(nextPulse_1)
-
-        # this is the improvement of the algorithm that compare 3 overlapping areas,
-        # and finds peak that exists in all of them
-
-        for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
-            if (abs(yg1[a]) > abs(yg1[a - 2]) and (yg1[a]) > abs(yg1[a + 2])) and (
-                    abs(yg2[a]) > abs(yg2[a - 2]) and (yg2[a]) > abs(yg2[a + 2])) and (
-                    abs(yg3[a]) > abs(yg3[a - 2]) and (yg3[a]) > abs(yg3[a + 2])):
-                y = max(abs(yg3[a]), abs(yg1[a]))
-                yg4[a] = max(y, abs(yg2[a]))
+            myNFFT = 2 ** (np.math.ceil(np.math.log(l, 2)))
+            yg1 = np.fft.rfft(xgm1, myNFFT) / l
+            yg2 = np.fft.rfft(xgm2, myNFFT) / l
+            yg3 = np.fft.rfft(xgm3, myNFFT) / l
+            f = Fs / 2 * np.linspace(0, 1, (myNFFT / 2) + 1)
+            yg4 = yg1
+            y1 = 2 * np.abs(yg1[1:np.math.floor((myNFFT / 2) + 1)])
+            y2 = 2 * np.abs(yg2[1:np.math.floor((myNFFT / 2) + 1)])
+            y3 = 2 * np.abs(yg3[1:np.math.floor((myNFFT / 2) + 1)])
+            index = 0
+            f1 = 0
+            print(y1)
+            print(np.math.floor(len(f) / 15 * 0.9 + 1))
+            print(np.math.floor(len(f) / 15 * 3.5))
+            for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
+                if f1 < y1[a]:
+                    f1 = y1[a]
+                    index = a
+            f1_old = f1
+            index_old = index
+            detected_pulse_1 = 60 * (index - 1) * 15 / (len(y1) - 1)
+            pulse_amplitude_1 = y1[index]
+            print("det")
+            print(detected_pulse_1)
+            if detected_pulse_1 >= 60 and detected_pulse_1 <= 120:
+                print("pulse exist")
+                self.num_of_frames = 200
             else:
-                x = min(abs(yg3[a]), abs(yg1[a]))
-                yg4[a] = min(abs(yg2[a]), x)
-        y4 = 2 * np.abs(yg4[1:np.math.floor((myNFFT / 2) + 1)])
-        f11 = 0
-        for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
-            if f11 < y4[a]:
-                f11 = y4[a]
-                index1 = a
+                print("no pulse!")
+                self.num_of_frames = 200
+            # finding the next pulse in the main roi
+            index2 = 0
+            pick = y1[index]
+            f1 = 0
+            y1[index] = 0
+            for b in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
+                if f1 < y1[b]:
+                    f1 = y1[b]
+                    index2 = b
+            nextPulse_1 = 60 * (index2 - 1) * 15 / (len(y1) - 1)
+            next_pulse_amplitude_1 = y1[index2]
+            print("nextPulse")
+            print(nextPulse_1)
 
-        f11_old = f11
-        index1_old = index1
-        detected_pulse_2 = 60 * (index1 - 1) * 15 / (len(y4) - 1)
-        pulse_amplitude_2 = y4[index1]
+            # this is the improvement of the algorithm that compare 3 overlapping areas,
+            # and finds peak that exists in all of them
+
+            for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
+                if (abs(yg1[a]) > abs(yg1[a - 2]) and (yg1[a]) > abs(yg1[a + 2])) and (
+                        abs(yg2[a]) > abs(yg2[a - 2]) and (yg2[a]) > abs(yg2[a + 2])) and (
+                        abs(yg3[a]) > abs(yg3[a - 2]) and (yg3[a]) > abs(yg3[a + 2])):
+                    y = max(abs(yg3[a]), abs(yg1[a]))
+                    yg4[a] = max(y, abs(yg2[a]))
+                else:
+                    x = min(abs(yg3[a]), abs(yg1[a]))
+                    yg4[a] = min(abs(yg2[a]), x)
+            y4 = 2 * np.abs(yg4[1:np.math.floor((myNFFT / 2) + 1)])
+            f11 = 0
+            for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
+                if f11 < y4[a]:
+                    f11 = y4[a]
+                    index1 = a
+
+            f11_old = f11
+            index1_old = index1
+            detected_pulse_2 = 60 * (index1 - 1) * 15 / (len(y4) - 1)
+            pulse_amplitude_2 = y4[index1]
+            print("dete")
+            print(detected_pulse_2)
+
+
+
+
 
 
