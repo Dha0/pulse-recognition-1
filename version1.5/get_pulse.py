@@ -136,8 +136,8 @@ class getPulseApp(object):
 
         # set current image frame to the processor's input
         self.processor.frame_in = frame
-        if len(self.processor.all_frames) % 201 == 0 and len(self.processor.all_frames) != 0:
-            sys.exit()
+        # if len(self.processor.all_frames) % 201 == 0 and len(self.processor.all_frames) != 0:
+        #     sys.exit()
         # self.processor.all_frames.append(frame)
         # process the image frame to perform all needed analysis
         if len(self.processor.all_frames) <= 200:

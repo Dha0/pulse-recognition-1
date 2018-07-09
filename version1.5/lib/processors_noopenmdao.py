@@ -258,10 +258,15 @@ class findFaceGetPulse(object):
             pulse_amplitude_1 = y1[index]
             print("det")
             print(detected_pulse_1)
-            if detected_pulse_1 >= 60 and detected_pulse_1 <= 120:
+            col = (255,0, 0)
+            if detected_pulse_1 >= 60 and detected_pulse_1 <= 121:
+                cv2.putText(self.frame_out, "pulse exist",
+                            (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1,  col, 2, cv2.LINE_AA)
                 print("pulse exist")
                 self.num_of_frames = 200
             else:
+                cv2.putText(self.frame_out, "no pulse",
+                            (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1,  col, 2, cv2.LINE_AA)
                 print("no pulse!")
                 self.num_of_frames = 200
             # finding the next pulse in the main roi
@@ -273,7 +278,7 @@ class findFaceGetPulse(object):
                 if f1 < y1[b]:
                     f1 = y1[b]
                     index2 = b
-            nextPulse_1 = 60 * (index2 - 1) * 15 / (len(y1) - 1)
+            nextPulse_1 = 60 * (index2 - 0.5) * 15 / (len(y1) - 1)
             next_pulse_amplitude_1 = y1[index2]
             print("nextPulse")
             print(nextPulse_1)
@@ -281,28 +286,28 @@ class findFaceGetPulse(object):
             # this is the improvement of the algorithm that compare 3 overlapping areas,
             # and finds peak that exists in all of them
 
-            for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
-                if (abs(yg1[a]) > abs(yg1[a - 2]) and (yg1[a]) > abs(yg1[a + 2])) and (
-                        abs(yg2[a]) > abs(yg2[a - 2]) and (yg2[a]) > abs(yg2[a + 2])) and (
-                        abs(yg3[a]) > abs(yg3[a - 2]) and (yg3[a]) > abs(yg3[a + 2])):
-                    y = max(abs(yg3[a]), abs(yg1[a]))
-                    yg4[a] = max(y, abs(yg2[a]))
-                else:
-                    x = min(abs(yg3[a]), abs(yg1[a]))
-                    yg4[a] = min(abs(yg2[a]), x)
-            y4 = 2 * np.abs(yg4[1:np.math.floor((myNFFT / 2) + 1)])
-            f11 = 0
-            for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
-                if f11 < y4[a]:
-                    f11 = y4[a]
-                    index1 = a
-
-            f11_old = f11
-            index1_old = index1
-            detected_pulse_2 = 60 * (index1 - 1) * 15 / (len(y4) - 1)
-            pulse_amplitude_2 = y4[index1]
-            print("dete")
-            print(detected_pulse_2)
+            # for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
+            #     if (abs(yg1[a]) > abs(yg1[a - 2]) and (yg1[a]) > abs(yg1[a + 2])) and (
+            #             abs(yg2[a]) > abs(yg2[a - 2]) and (yg2[a]) > abs(yg2[a + 2])) and (
+            #             abs(yg3[a]) > abs(yg3[a - 2]) and (yg3[a]) > abs(yg3[a + 2])):
+            #         y = max(abs(yg3[a]), abs(yg1[a]))
+            #         yg4[a] = max(y, abs(yg2[a]))
+            #     else:
+            #         x = min(abs(yg3[a]), abs(yg1[a]))
+            #         yg4[a] = min(abs(yg2[a]), x)
+            # y4 = 2 * np.abs(yg4[1:np.math.floor((myNFFT / 2) + 1)])
+            # f11 = 0
+            # for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
+            #     if f11 < y4[a]:
+            #         f11 = y4[a]
+            #         index1 = a
+            #
+            # f11_old = f11
+            # index1_old = index1
+            # detected_pulse_2 = 60 * (index1 - 1) * 15 / (len(y4) - 1)
+            # pulse_amplitude_2 = y4[index1]
+            # print("dete")
+            # print(detected_pulse_2)
 
 
 
