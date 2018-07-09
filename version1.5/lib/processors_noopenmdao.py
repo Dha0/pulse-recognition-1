@@ -171,11 +171,13 @@ class findFaceGetPulse(object):
             fobject = (frame, forehead1)
             self.all_frames.append(fobject)
             if len(self.all_frames) > 200:
-                # self.get_selected_frames()
+                # self.get_selected_frames_y()
+                # self.get_selected_frames_x()
                 self.selected_frames = self.all_frames.copy()
                 self.run()
 
-    def get_selected_frames(self):
+    # Selects all frames with the closest X
+    def get_selected_frames_x(self):
         i = 0
         j = 0
         temp = []
@@ -184,11 +186,29 @@ class findFaceGetPulse(object):
             diff = np.array(self.all_frames[0][1][0]) - np.array(self.all_frames[i][1][0])
             temp.append(abs(diff))
             i += 1
-        while j < 200:
+        while j < 100:
             min_x = temp.index(min(temp))
             self.indexs.append(min_x)
             temp[min_x] = np.math.inf
             self.selected_frames.append(self.all_frames[min_x])
+            j += 1
+        self.run()
+
+    # Selects all frames with the closest X
+    def get_selected_frames_y(self):
+        i = 0
+        j = 0
+        temp = []
+        while i < len(self.all_frames):
+            self.xy.append(self.all_frames[i][1][1])
+            diff = np.array(self.all_frames[0][1][1]) - np.array(self.all_frames[i][1][1])
+            temp.append(abs(diff))
+            i += 1
+        while j < 100:
+            min_y = temp.index(min(temp))
+            self.indexs.append(min_y)
+            temp[min_y] = np.math.inf
+            self.selected_frames.append(self.all_frames[min_y])
             j += 1
         self.run()
 
@@ -269,19 +289,19 @@ class findFaceGetPulse(object):
                             (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1,  col, 2, cv2.LINE_AA)
                 print("no pulse!")
                 self.num_of_frames = 200
-            # finding the next pulse in the main roi
-            index2 = 0
-            pick = y1[index]
-            f1 = 0
-            y1[index] = 0
-            for b in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
-                if f1 < y1[b]:
-                    f1 = y1[b]
-                    index2 = b
-            nextPulse_1 = 60 * (index2 - 0.5) * 15 / (len(y1) - 1)
-            next_pulse_amplitude_1 = y1[index2]
-            print("nextPulse")
-            print(nextPulse_1)
+            # # finding the next pulse in the main roi
+            # index2 = 0
+            # pick = y1[index]
+            # f1 = 0
+            # y1[index] = 0
+            # for b in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
+            #     if f1 < y1[b]:
+            #         f1 = y1[b]
+            #         index2 = b
+            # nextPulse_1 = 60 * (index2 - 0.5) * 15 / (len(y1) - 1)
+            # next_pulse_amplitude_1 = y1[index2]
+            # print("nextPulse")
+            # print(nextPulse_1)
 
             # this is the improvement of the algorithm that compare 3 overlapping areas,
             # and finds peak that exists in all of them
