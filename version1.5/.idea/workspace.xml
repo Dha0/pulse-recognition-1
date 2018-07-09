@@ -17,8 +17,8 @@
       <file leaf-file-name="get_pulse.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/get_pulse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="74">
-              <caret line="138" column="8" selection-start-line="138" selection-start-column="10" selection-end-line="139" selection-end-column="13" />
+            <state relative-caret-position="153">
+              <caret line="146" column="76" selection-start-line="146" selection-start-column="76" selection-end-line="146" selection-end-column="76" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -29,8 +29,8 @@
       <file leaf-file-name="processors_noopenmdao.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/lib/processors_noopenmdao.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-365">
-              <caret line="174" column="16" lean-forward="true" selection-start-line="174" selection-start-column="18" selection-end-line="175" selection-end-column="16" />
+            <state relative-caret-position="170">
+              <caret line="160" column="34" selection-start-line="160" selection-start-column="34" selection-end-line="160" selection-end-column="34" />
             </state>
           </provider>
         </entry>
@@ -67,6 +67,9 @@
       <find>selected_frames</find>
       <find>gaussian_video</find>
       <find>magnify_color</find>
+      <find>key_handler</find>
+      <find>ey_controls</find>
+      <find>face detection lock</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -462,8 +465,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/get_pulse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="74">
-          <caret line="138" column="8" selection-start-line="138" selection-start-column="10" selection-end-line="139" selection-end-column="13" />
+        <state relative-caret-position="153">
+          <caret line="146" column="76" selection-start-line="146" selection-start-column="76" selection-end-line="146" selection-end-column="76" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
@@ -472,8 +475,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/lib/processors_noopenmdao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-365">
-          <caret line="174" column="16" lean-forward="true" selection-start-line="174" selection-start-column="18" selection-end-line="175" selection-end-column="16" />
+        <state relative-caret-position="170">
+          <caret line="160" column="34" selection-start-line="160" selection-start-column="34" selection-end-line="160" selection-end-column="34" />
         </state>
       </provider>
     </entry>

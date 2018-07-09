@@ -98,8 +98,11 @@ class getPulseApp(object):
         data quality, once a forehead has been sucessfully isolated.
         """
         #state = self.processor.find_faces.toggle()
-        state = self.processor.find_faces_toggle()
-        print("face detection lock =", not state)
+        # state = self.processor.find_faces_toggle()
+        # print("face detection lock =", not state)
+        self.processor = findFaceGetPulse(bpm_limits=[50, 160],
+                                                      data_spike_limit=2500.,
+                                                      face_detector_smoothness=10.)
 
     def key_handler(self):
         """
@@ -117,6 +120,7 @@ class getPulseApp(object):
             if self.send_serial:
                 self.serial.close()
             sys.exit()
+
 
         for key in self.key_controls.keys():
             if chr(self.pressed) == key:
@@ -140,7 +144,7 @@ class getPulseApp(object):
         #     sys.exit()
         # self.processor.all_frames.append(frame)
         # process the image frame to perform all needed analysis
-        if len(self.processor.all_frames) <= 200:
+        if len(self.processor.all_frames) <= 200 and self.processor.flag == 0:
             # self.processor.run(self.selected_cam, frame)
             self.processor.find_face(frame)
 

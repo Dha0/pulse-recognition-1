@@ -50,6 +50,8 @@ class findFaceGetPulse(object):
         self.t0 = time.time()
         self.bpms2 = []
         self.bpm2 = 0
+        self.num_of_find_face = 0
+        self.flag = 0
         dpath = resource_path("haarcascade_frontalface_alt.xml")
         if not os.path.exists(dpath):
             print("Cascade file not present!")
@@ -144,12 +146,20 @@ class findFaceGetPulse(object):
                                                            minNeighbors=4,
                                                            minSize=(
                                                                50, 50),
-                                                           flags=cv2.CASCADE_SCALE_IMAGE))
+                                                            flags=cv2.CASCADE_SCALE_IMAGE))
         print(detected)
-
+        if self.num_of_find_face > 5:
+            cv2.putText(self.frame_out, "Does not recognize the face well enough",
+                        (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2, cv2.LINE_AA)
+            cv2.putText(self.frame_out, "Press 'S' to start again",
+                        (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2, cv2.LINE_AA)
+            self.num_of_frames = 300
+            self.flag = 1
+        if len(detected) == 0:
+            self.num_of_find_face += 1
         if len(detected) > 0:
+            self.num_of_find_face = 0
             detected.sort(key=lambda a: a[-1] * a[-2])
-
             if self.shift(detected[-1]) > 10:
                 self.face_rect = detected[-1]
             x1, y1, w1, h1 = self.face_rect
@@ -162,9 +172,6 @@ class findFaceGetPulse(object):
             ok, bbox = self.tracker.update(frame)
             x, y, w, h = self.get_subface_coord(0.5, 0.16, 0.25, 0.15, bbox)
             forehead1 = x, y, w, h
-            # p1 = (int(bbox[0]), int(bbox[1]))
-            # p2 = (int(bbox[0] + bbox[2]), int(bbox[1] + bbox[3]))
-            # cv2.rectangle(frame, p1, p2, (255, 0, 0), 2, 2)
             p1 = (int(x), int(y))
             p2 = (int(x+w), int(y+h))
             cv2.rectangle(frame, p1, p2, (0, 255, 0), 2, 2)
@@ -173,8 +180,29 @@ class findFaceGetPulse(object):
             if len(self.all_frames) > 200:
                 # self.get_selected_frames_y()
                 # self.get_selected_frames_x()
-                self.selected_frames = self.all_frames.copy()
-                self.run()
+                self.check_big_move()
+                if self.num_of_frames != 300:
+                    self.selected_frames = self.all_frames.copy()
+                    self.run()
+
+    def check_big_move(self):
+        i = 0
+        temp = []
+        while i < len(self.all_frames)-1:
+            diff = np.array(self.all_frames[i+1][1][0]) - np.array(self.all_frames[i][1][0])
+            temp.append(abs(diff))
+            i += 1
+        if max(temp) > 10:
+            cv2.putText(self.frame_out, "Please don't move so much ",
+                        (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2, cv2.LINE_AA)
+            cv2.putText(self.frame_out, "Press 'S' to start again",
+                        (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2, cv2.LINE_AA)
+            self.num_of_frames = 300
+
+
+
+
+
 
     # Selects all frames with the closest X
     def get_selected_frames_x(self):
@@ -213,7 +241,6 @@ class findFaceGetPulse(object):
         self.run()
 
     def run(self):
-            print(self.selected_frames)
             self.times.append(time.time() - self.t0)
             def nextpow2(i):
                 n = 1
@@ -265,9 +292,6 @@ class findFaceGetPulse(object):
             y3 = 2 * np.abs(yg3[1:np.math.floor((myNFFT / 2) + 1)])
             index = 0
             f1 = 0
-            print(y1)
-            print(np.math.floor(len(f) / 15 * 0.9 + 1))
-            print(np.math.floor(len(f) / 15 * 3.5))
             for a in range(np.math.floor(len(f) / 15 * 0.9 + 1), np.math.floor(len(f) / 15 * 3.5)):
                 if f1 < y1[a]:
                     f1 = y1[a]
