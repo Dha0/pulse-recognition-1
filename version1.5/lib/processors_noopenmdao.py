@@ -62,6 +62,7 @@ class findFaceGetPulse(object):
         self.last_wh = np.array([0, 0])
         self.output_dim = 13
         self.trained = False
+        self.start = 0
 
         self.idx = 1
         self.idx2 = 1
@@ -134,7 +135,6 @@ class findFaceGetPulse(object):
         pylab.savefig("data_fft.png")
         quit()
 
-
     def find_face(self, frame):
         self.times.append(time.time() - self.t0)
         self.frame_out = self.frame_in
@@ -146,7 +146,7 @@ class findFaceGetPulse(object):
                                                            minNeighbors=4,
                                                            minSize=(
                                                                50, 50),
-                                                            flags=cv2.CASCADE_SCALE_IMAGE))
+                                                           flags=cv2.CASCADE_SCALE_IMAGE))
         print(detected)
         if self.num_of_find_face > 5:
             cv2.putText(self.frame_out, "Does not recognize the face well enough",
@@ -162,18 +162,18 @@ class findFaceGetPulse(object):
             detected.sort(key=lambda a: a[-1] * a[-2])
             if self.shift(detected[-1]) > 10:
                 self.face_rect = detected[-1]
-            x1, y1, w1, h1 = self.face_rect
-            bbox = x1, y1, w1, h1
-
-
-            ok = self.tracker.init(frame, bbox)
+            if self.start == 0:
+                x1, y1, w1, h1 = self.face_rect
+                bbox = x1, y1, w1, h1
+                ok = self.tracker.init(frame, bbox)
+                self.start = 1
             if set(self.face_rect) == set([1, 1, 2, 2]):
                 return
             ok, bbox = self.tracker.update(frame)
             x, y, w, h = self.get_subface_coord(0.5, 0.16, 0.25, 0.15, bbox)
             forehead1 = x, y, w, h
             p1 = (int(x), int(y))
-            p2 = (int(x+w), int(y+h))
+            p2 = (int(x + w), int(y + h))
             cv2.rectangle(frame, p1, p2, (0, 255, 0), 2, 2)
             fobject = (frame, forehead1)
             self.all_frames.append(fobject)
