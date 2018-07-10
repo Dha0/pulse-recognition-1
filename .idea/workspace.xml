@@ -2,14 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="678f71a6-8bea-48c5-bb0e-3a7c79008048" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/help/fps.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_pulse.spec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_pulse_mac.spec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/get_pulse_win.spec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/version1.5/get_pulse.spec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/version1.5/get_pulse_mac.spec" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/version1.5/get_pulse_win.spec" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/version1.5/lib/fps.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/version1.5/lib/processors_noopenmdao.py" beforeDir="false" afterPath="$PROJECT_DIR$/version1.5/lib/processors_noopenmdao.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/version1.5/mdetect.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -55,8 +52,8 @@
       <file leaf-file-name="processors_noopenmdao.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/version1.5/lib/processors_noopenmdao.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2179">
-              <caret line="360" lean-forward="true" selection-start-line="360" selection-end-line="360" />
+            <state relative-caret-position="240">
+              <caret line="272" column="41" selection-start-line="272" selection-start-column="41" selection-end-line="272" selection-end-column="41" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -113,6 +110,11 @@
   </component>
   <component name="PropertiesComponent">
     <property name="last_opened_file_path" value="$PROJECT_DIR$/version1.5" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\Ross\Documents\new\pulse-recognition\help" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -199,10 +201,21 @@
     <entry file="file://$PROJECT_DIR$/version1.5/setup.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/version1.5/mdetect.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/version1.5/lib/fps.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-300" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/help/fps.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/version1.5/lib/processors_noopenmdao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2179">
-          <caret line="360" lean-forward="true" selection-start-line="360" selection-end-line="360" />
+        <state relative-caret-position="240">
+          <caret line="272" column="41" selection-start-line="272" selection-start-column="41" selection-end-line="272" selection-end-column="41" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>

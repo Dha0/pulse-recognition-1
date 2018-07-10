@@ -242,13 +242,7 @@ class findFaceGetPulse(object):
 
     def run(self):
             self.times.append(time.time() - self.t0)
-            def nextpow2(i):
-                n = 1
-                j = 0
-                while n < i:
-                    n *= 2
-                    j += 1
-                return j
+
             xg1 = np.zeros(len(self.selected_frames), 'double')
             xg2 = np.zeros(len(self.selected_frames), 'double')
             xg3 = np.zeros(len(self.selected_frames), 'double')
@@ -274,13 +268,9 @@ class findFaceGetPulse(object):
             xgm1 = xg1 - np.mean(xg1)
             xgm2 = xg2 - np.mean(xg2)
             xgm3 = xg3 - np.mean(xg3)
-            full_time_array_1 = xgm1
-            # full_time_array_2 = xgm2
-            # full_time_array_3 = xgm3
             Fs = 27
             T = 1 / Fs
             l = len(self.selected_frames)
-
             myNFFT = 2 ** (np.math.ceil(np.math.log(l, 2)))
             yg1 = np.fft.rfft(xgm1, myNFFT) / l
             yg2 = np.fft.rfft(xgm2, myNFFT) / l
