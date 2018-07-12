@@ -140,7 +140,7 @@ class getPulseApp(object):
 
         # set current image frame to the processor's input
         self.processor.frame_in = frame
-        if len(self.processor.all_frames) <= 300 and self.processor.flag == 0:
+        if len(self.processor.all_frames) <= 200 and self.processor.flag == 0:
             self.processor.find_face(frame)
 
 

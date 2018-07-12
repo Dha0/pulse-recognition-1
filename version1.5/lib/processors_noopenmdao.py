@@ -110,7 +110,7 @@ class findFaceGetPulse(object):
                                                                50, 50),
                                                            flags=cv2.CASCADE_SCALE_IMAGE))
 
-        if self.num_of_not_find_face > 5:
+        if self.num_of_not_find_face > 10:
             cv2.putText(self.frame_out, "Does not recognize the face well enough",
                         (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2, cv2.LINE_AA)
             cv2.putText(self.frame_out, "Press 'S' to start again",
@@ -140,13 +140,13 @@ class findFaceGetPulse(object):
                 cv2.rectangle(frame, p1, p2, (0, 255, 0), 2, 2)
                 fobject = (frame, forehead1)
                 self.all_frames.append(fobject)
-                if len(self.all_frames) > 300:
+                if len(self.all_frames) > 200:
                     # self.get_selected_frames_x()
                     self.check_big_move()
                     if self.num_of_frames != 400:
-                        self.get_selected_frames_y()
-                        # self.selected_frames = self.all_frames.copy()
-                        # self.run()
+                        # self.get_selected_frames_y()
+                         self.selected_frames = self.all_frames.copy()
+                         self.run()
 
     def check_big_move(self):
         i = 0
