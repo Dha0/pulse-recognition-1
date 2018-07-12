@@ -14,11 +14,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="get_pulse.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="get_pulse.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/get_pulse.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="146" column="76" selection-start-line="146" selection-start-column="76" selection-end-line="146" selection-end-column="76" />
+            <state relative-caret-position="239">
+              <caret line="175" column="14" selection-start-line="175" selection-start-column="14" selection-end-line="175" selection-end-column="14" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -26,11 +26,15 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="processors_noopenmdao.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="processors_noopenmdao.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/lib/processors_noopenmdao.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="170">
-              <caret line="160" column="34" selection-start-line="160" selection-start-column="34" selection-end-line="160" selection-end-column="34" />
+            <state relative-caret-position="205">
+              <caret line="303" column="17" lean-forward="true" selection-start-line="303" selection-start-column="17" selection-end-line="303" selection-end-column="17" />
+              <folding>
+                <marker date="1531413185966" expanded="true" signature="6590:6663" ph="..." />
+                <marker date="1531413185966" expanded="true" signature="6593:6663" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -70,6 +74,8 @@
       <find>key_handler</find>
       <find>ey_controls</find>
       <find>face detection lock</find>
+      <find>draw_rect</find>
+      <find>get_subface_means</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -81,8 +87,8 @@
         <option value="$PROJECT_DIR$/lib/device.py" />
         <option value="$PROJECT_DIR$/mdetect.py" />
         <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/get_pulse.py" />
         <option value="$PROJECT_DIR$/lib/processors_noopenmdao.py" />
+        <option value="$PROJECT_DIR$/get_pulse.py" />
       </list>
     </option>
   </component>
@@ -96,6 +102,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -112,7 +119,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -256,7 +262,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7352246" visible="true" weight="0.1830161" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.7328605" visible="true" weight="0.1830161" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50073206" side_tool="true" weight="0.32750398" />
       <window_info anchor="bottom" id="Version Control" order="7" />
@@ -264,7 +270,7 @@
       <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49926794" visible="true" weight="0.32750398" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info id="Favorites" order="2" sideWeight="0.26477543" side_tool="true" visible="true" weight="0.1830161" />
+      <window_info id="Favorites" order="2" sideWeight="0.2671395" side_tool="true" visible="true" weight="0.1830161" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -277,21 +283,21 @@
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="9" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.24983476" />
       <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="10" />
+      <window_info anchor="bottom" id="Version Control" order="3" />
       <window_info active="true" anchor="bottom" id="Run" order="6" visible="true" weight="0.32905984" />
-      <window_info anchor="bottom" id="Find" order="5" />
+      <window_info anchor="bottom" id="Python Console" order="0" />
+      <window_info anchor="bottom" id="Message" order="4" />
       <window_info anchor="bottom" id="Debug" order="7" weight="0.4" />
       <window_info anchor="bottom" id="Terminal" order="1" />
       <window_info anchor="bottom" id="Event Log" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="3" />
+      <window_info anchor="bottom" id="Cvs" order="8" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="5" />
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info anchor="bottom" id="Message" order="4" />
-      <window_info anchor="bottom" id="Python Console" order="0" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -303,6 +309,27 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/get_pulse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3060">
+          <caret line="180" column="11" lean-forward="true" selection-start-line="180" selection-start-column="11" selection-end-line="180" selection-end-column="11" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/processors_noopenmdao.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4114">
+          <caret line="242" column="4" selection-start-line="242" selection-start-column="4" selection-end-line="307" selection-end-column="40" />
+          <folding>
+            <marker date="1531413185966" expanded="true" signature="6590:6663" ph="..." />
+            <marker date="1531413185966" expanded="true" signature="6593:6663" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/get_pulse.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2482">
@@ -463,20 +490,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/get_pulse.py">
+    <entry file="file://$PROJECT_DIR$/lib/processors_noopenmdao.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="146" column="76" selection-start-line="146" selection-start-column="76" selection-end-line="146" selection-end-column="76" />
+        <state relative-caret-position="205">
+          <caret line="303" column="17" lean-forward="true" selection-start-line="303" selection-start-column="17" selection-end-line="303" selection-end-column="17" />
           <folding>
-            <element signature="e#0#29#0" expanded="true" />
+            <marker date="1531413185966" expanded="true" signature="6590:6663" ph="..." />
+            <marker date="1531413185966" expanded="true" signature="6593:6663" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/lib/processors_noopenmdao.py">
+    <entry file="file://$PROJECT_DIR$/get_pulse.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="160" column="34" selection-start-line="160" selection-start-column="34" selection-end-line="160" selection-end-column="34" />
+        <state relative-caret-position="239">
+          <caret line="175" column="14" selection-start-line="175" selection-start-column="14" selection-end-line="175" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
