@@ -26,15 +26,9 @@ class findFaceGetPulse(object):
         self.frame_out = np.zeros((10, 10))
         self.fps = 0
         self.buffer_size = 250
-        # self.window = np.hamming(self.buffer_size)
         self.fps2 = 0
-        self.data_buffer = []
-        self.data_buffer2 = []
-        self.data_buffer3 = []
         self.times = []
         self.ttimes = []
-        self.samples = []
-        self.freqs = []
         self.fft = []
         self.xy=[]
         self.indexs = []
@@ -43,13 +37,7 @@ class findFaceGetPulse(object):
         self.t0 = time.time()
         self.bpms = []
         self.bpm = 0
-        self.samples2 = []
-        self.freqs2 = []
-        self.fft2 = []
-        self.slices2 = [[0]]
         self.t0 = time.time()
-        self.bpms2 = []
-        self.bpm2 = 0
         self.num_of_not_find_face = 0
         self.flag = 0
         dpath = resource_path("haarcascade_frontalface_alt.xml")
@@ -121,6 +109,7 @@ class findFaceGetPulse(object):
                                                            minSize=(
                                                                50, 50),
                                                            flags=cv2.CASCADE_SCALE_IMAGE))
+
         if self.num_of_not_find_face > 5:
             cv2.putText(self.frame_out, "Does not recognize the face well enough",
                         (10, 25), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2, cv2.LINE_AA)
@@ -152,7 +141,6 @@ class findFaceGetPulse(object):
                 fobject = (frame, forehead1)
                 self.all_frames.append(fobject)
                 if len(self.all_frames) > 300:
-
                     # self.get_selected_frames_x()
                     self.check_big_move()
                     if self.num_of_frames != 400:
@@ -173,11 +161,6 @@ class findFaceGetPulse(object):
             cv2.putText(self.frame_out, "Press 'S' to start again",
                         (10, 60), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (255, 0, 0), 2, cv2.LINE_AA)
             self.num_of_frames = 400
-
-
-
-
-
 
     # Selects all frames with the closest X
     def get_selected_frames_x(self):
@@ -242,13 +225,9 @@ class findFaceGetPulse(object):
             xgm1 = xg1 - np.mean(xg1)
             xgm2 = xg2 - np.mean(xg2)
             xgm3 = xg3 - np.mean(xg3)
-            full_time_array_1 = xgm1
-            # full_time_array_2 = xgm2
-            # full_time_array_3 = xgm3
             Fs = 27
             T = 1 / Fs
             l = len(self.selected_frames)
-
             myNFFT = 2 ** (np.math.ceil(np.math.log(l, 2)))
             yg1 = np.fft.rfft(xgm1, myNFFT) / l
             yg2 = np.fft.rfft(xgm2, myNFFT) / l
@@ -281,3 +260,4 @@ class findFaceGetPulse(object):
                             (x, y), cv2.FONT_HERSHEY_SIMPLEX, 1,  col, 2, cv2.LINE_AA)
                 print("no pulse!")
                 self.num_of_frames = 300
+
